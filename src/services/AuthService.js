@@ -9,12 +9,14 @@ export const Login = (email, password) => {
     .then((response) => {
       console.log(response);
       if (response.data.token) {
-        localStorage.setItem("user", JSON.stringify(response.data.token));
+        localStorage.setItem("token", JSON.stringify(response.data.token));
+        localStorage.setItem("user", JSON.stringify(response.data.data.id));
       }
       return response.data;
     });
 };
 export const logout = () => {
+  localStorage.removeItem("token");
   localStorage.removeItem("user");
 };
 
