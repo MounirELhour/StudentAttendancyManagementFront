@@ -1,30 +1,42 @@
 import React, { useEffect, useState } from "react";
 import LoginPage from "./components/LoginPage";
 import NavBArComponent from "./components/NavBarComponent";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import AdminComponent from "./components/mainSections/AdminComponent";
 import ParentComponent from "./components/mainSections/ParentComponent";
 import StudentComponent from "./components/mainSections/StudentComponent";
 import TeacherComponent from "./components/mainSections/TeacherComponent";
 import HomeComponent from "./components/mainSections/HomeComponent";
-import { GetLogedUser } from "./requests/UserUtls";
+import { GetLogedUser } from "./services/UserService";
 import PrivateRoutes from "./services/PrivateRoutes";
 
 function App() {
   const [userData, setUserData] = useState({});
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const route = useLocation();
+  const navigate = useNavigate();
   useEffect(() => {
-    //console.log(GetLogedUser());
-    setUserData(GetLogedUser());
+    GetLogedUser(setUserData, setIsAuthenticated, isAuthenticated);
+  }, [route]);
+  useEffect(() => {
+    if (userData) {
+      setIsAuthenticated(userData.email ? true : false);
+    }
+  }, [userData, route]);
 
-    console.log(userData ? userData : null);
-  }, []);
-
+  console.log(isAuthenticated);
   return (
-    <BrowserRouter>
-      <NavBArComponent />
+    <div>
+      {isAuthenticated && <NavBArComponent />}
       <Routes>
-        <Route exact path="Login" element={<LoginPage />} />
-        <Route element={<PrivateRoutes />}>
+        <Route exact path="Login" element={<LoginPage userData={userData} />} />
+        <Route element={<PrivateRoutes isAuth={isAuthenticated} />}>
           <Route exact path="/" element={<HomeComponent />} />
           <Route exact path="Student" element={<StudentComponent />} />
           <Route exact path="Parent" element={<ParentComponent />} />
@@ -41,7 +53,7 @@ function App() {
           }
         />
       </Routes>
-    </BrowserRouter>
+    </div>
   );
 }
 

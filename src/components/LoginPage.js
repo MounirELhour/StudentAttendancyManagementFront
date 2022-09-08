@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Login } from "../services/AuthService";
+import { Navigate, useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+const LoginPage = (userData) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {}, []);
-
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     Login(email, password);
-    alert("an email was submitted: ");
+
     event.preventDefault();
   };
+  useEffect(() => {
+    if (userData) {
+      navigate("/");
+    }
+  }, [userData]);
 
   return (
     <div className="container-sm" id="LoginPage">
