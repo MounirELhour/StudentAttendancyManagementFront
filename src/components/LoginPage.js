@@ -12,7 +12,6 @@ const LoginPage = ({ setIsAuthenticated, isAuthenticated }) => {
     Login(email, password, setIsAuthenticated);
     event.preventDefault();
   };
-
   useEffect(() => {
     isAuthenticated && navigate('/');
   }, [isAuthenticated]);

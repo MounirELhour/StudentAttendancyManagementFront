@@ -25,13 +25,9 @@ function App() {
     setIsAuthenticated(logedUser.email ? true : false);
   }, [logedUser]);
 
-  console.log(logedUser);
-  console.log(location);
-  console.log('Home', isAuthenticated);
-
   return (
     <div>
-      {isAuthenticated && <NavBArComponent />}
+      {isAuthenticated && <NavBArComponent logedUser={logedUser} />}
       <Routes>
         <Route
           exact

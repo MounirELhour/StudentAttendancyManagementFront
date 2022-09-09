@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-const NavBArComponent = () => {
+import { Link } from 'react-router-dom';
+const NavBArComponent = ({ logedUser }) => {
   return (
     <nav id="navbar" className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
