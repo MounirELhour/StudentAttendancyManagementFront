@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
 const NavBArComponent = ({ logedUser }) => {
+  const containesRole = role => {
+    return logedUser.roles.includes(role);
+  };
   return (
     <nav id="navbar" className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -24,24 +27,37 @@ const NavBArComponent = ({ logedUser }) => {
                 Home
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to="/student" className="nav-link">
-                Student
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/teacher" className="nav-link">
-                Teacher
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/admin" className="nav-link">
-                Admin
-              </Link>
-            </li>
+            {containesRole('ROLE_STUDENT') && (
+              <li className="nav-item">
+                <Link to="/student" className="nav-link">
+                  Student
+                </Link>
+              </li>
+            )}
+
+            {containesRole('ROLE_TEACHER') && (
+              <li className="nav-item">
+                <Link to="/teacher" className="nav-link">
+                  Teacher
+                </Link>
+              </li>
+            )}
+
+            {containesRole('ROLE_ADMIN') && (
+              <li className="nav-item">
+                <Link to="/admin" className="nav-link">
+                  Admin
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
-        <div className="logout">
+        <div className="me-3">
+          <b>Welcome :</b>
+          {logedUser && <i class=""> {logedUser.email} </i>}
+        </div>
+        <b>|</b>
+        <div className="logout ms-3">
           <Link to="/logout" className="nav-link">
             <i class="fa-solid fa-right-from-bracket"> </i>
           </Link>
