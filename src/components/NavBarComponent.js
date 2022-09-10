@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 const NavBArComponent = ({ logedUser }) => {
-  const containesRole = role => {
-    return logedUser.roles.includes(role);
+  const containesRole = (role) => {
+    return logedUser.roles?.includes(role);
   };
   return (
     <nav id="navbar" className="navbar navbar-expand-lg navbar-light bg-light">
@@ -27,7 +27,7 @@ const NavBArComponent = ({ logedUser }) => {
                 Home
               </Link>
             </li>
-            {containesRole('ROLE_STUDENT') && (
+            {containesRole("ROLE_STUDENT") && (
               <li className="nav-item">
                 <Link to="/student" className="nav-link">
                   Student
@@ -35,7 +35,7 @@ const NavBArComponent = ({ logedUser }) => {
               </li>
             )}
 
-            {containesRole('ROLE_TEACHER') && (
+            {containesRole("ROLE_PROF") && (
               <li className="nav-item">
                 <Link to="/teacher" className="nav-link">
                   Teacher
@@ -43,7 +43,7 @@ const NavBArComponent = ({ logedUser }) => {
               </li>
             )}
 
-            {containesRole('ROLE_ADMIN') && (
+            {containesRole("ROLE_ADMIN") && (
               <li className="nav-item">
                 <Link to="/admin" className="nav-link">
                   Admin
@@ -54,7 +54,7 @@ const NavBArComponent = ({ logedUser }) => {
         </div>
         <div className="me-3">
           <b>Welcome :</b>
-          {logedUser && <i class=""> {logedUser.email} </i>}
+          {logedUser && <i class=""> {logedUser.lastName} </i>}
         </div>
         <b>|</b>
         <div className="logout ms-3">
