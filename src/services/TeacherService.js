@@ -21,3 +21,43 @@ export const GetClassRooms = (setClasses) => {
       console.error(error);
     });
 };
+
+export const GetClassRoomStudents = (setStudents, classId) => {
+  const bearer = AuthHeader();
+  const userId = localStorage.getItem("user");
+
+  axios
+    .get(
+      process.env.REACT_APP_SERVER_ADRESSE + "/class_rooms/" + classId,
+      bearer
+    )
+    .then((response) => {
+      const studentFiltredResult = response.data.users?.filter((student) => {
+        return student.roles?.includes("ROLE_STUDENT");
+      });
+      const filtered = studentFiltredResult.filter(function (x) {
+        return x !== undefined;
+      });
+      setStudents(filtered);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const setStudentsAttendances = (attendance) => {
+  const bearer = AuthHeader();
+
+  axios
+    .post(
+      process.env.REACT_APP_SERVER_ADRESSE + "/attendances",
+      attendance,
+      bearer
+    )
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};

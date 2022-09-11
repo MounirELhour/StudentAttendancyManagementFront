@@ -24,6 +24,7 @@ function App() {
   useEffect(() => {
     setIsAuthenticated(logedUser.email ? true : false);
   }, [logedUser]);
+
   return (
     <div>
       {isAuthenticated && <NavBArComponent logedUser={logedUser} />}
@@ -46,7 +47,11 @@ function App() {
             element={<StudentComponent user={logedUser} />}
           />
           <Route exact path="Parent" element={<ParentComponent />} />
-          <Route exact path="Teacher" element={<TeacherComponent />} />
+          <Route
+            exact
+            path="Teacher"
+            element={<TeacherComponent user={logedUser} />}
+          />
           <Route exact path="Admin" element={<AdminComponent />} />{" "}
         </Route>
 

@@ -14,6 +14,7 @@ export const GetLogedUser = (setUserData, setIsAuthenticated) => {
         firstName: response.data.firstName,
         lastName: response.data.lastName,
         roles: response.data.roles,
+        matiere: response.data.matiere,
       });
     })
     .catch((error) => {
